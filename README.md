@@ -1,5 +1,5 @@
 # Loyality-Detection-Erosion
-# Loyalty Detection & Erosion
+
 
 A Flask-based web application designed to track user/customer engagement, detect signs of loyalty erosion (churn/defection), and trigger retention strategies.
 
