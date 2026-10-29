@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">Customer Loyalty Dashboard</h2>
+
+<div class="card p-4 mb-4">
+
+<h4>Data Management</h4>
+
+<form action="/add" method="post">
+
+<div class="row mb-3">
+
+<div class="col-md-3">
+<input name="customer" class="form-control" placeholder="Customer ID">
+</div>
+
+<div class="col-md-2">
+<select name="brand" class="form-control">
+<option>BrandA</option>
+<option>BrandB</option>
+<option>BrandC</option>
+</select>
+</div>
+
+<div class="col-md-2">
+<input type="number" name="quantity" class="form-control" placeholder="Quantity">
+</div>
+
+<div class="col-md-3">
+<input type="date" name="date" class="form-control">
+</div>
+
+<div class="col-md-2">
+<button class="btn btn-success">Add</button>
+</div>
+
+</div>
+
+</form>
+
+<hr>
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+
+<input type="file" name="file" class="form-control mb-2">
+
+<button class="btn btn-primary">Upload Dataset</button>
+
+</form>
+
+<hr>
+
+<a href="/generate" class="btn btn-warning">Generate Sample Data</a>
+<a href="/download" class="btn btn-info">Download Report</a>
+<a href="/clear" class="btn btn-danger">Clear Data</a>
+
+</div>
+
+<div class="card p-4 mb-4">
+
+<h4>Customer Loyalty Risk</h4>
+
+<table class="table table-striped">
+
+<tr>
+<th>Customer</th>
+<th>Loyalty Score</th>
+<th>Risk</th>
+<th>Recommendation</th>
+</tr>
+
+{% for r in risk_table %}
+
+<tr>
+
+<td>{{r.customer}}</td>
+<td>{{r.score}}</td>
+
+<td>
+
+{% if r.risk=="High" %}
+<span class="badge bg-danger">High</span>
+
+{% elif r.risk=="Medium" %}
+<span class="badge bg-warning">Medium</span>
+
+{% else %}
+<span class="badge bg-success">Low</span>
+{% endif %}
+
+</td>
+
+<td>{{r.action}}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<div class="card p-3 mb-4">
+{{brand_chart|safe}}
+</div>
+
+<div class="card p-3 mb-4">
+{{loyalty_chart|safe}}
+</div>
+
+<div class="card p-3 mb-4">
+{{trend_chart|safe}}
+</div>
+
+<div class="card p-3 mb-4">
+{{heatmap_chart|safe}}
+</div>
+
+{% endblock %}
